@@ -14,10 +14,15 @@ import {
   X,
   Facebook,
   Instagram,
-  Twitter,
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/freshtech-logo.svg";
 import { Input } from "@/components/ui/input";
@@ -68,7 +73,35 @@ const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
   { href: "#why", label: "Why Us" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
+];
+
+const faqs = [
+  {
+    q: "What devices do you repair?",
+    a: "We repair smartphones, tablets, laptops, desktops, gaming consoles, and a wide range of consumer electronics — from screen and battery issues to complex hardware and software problems.",
+  },
+  {
+    q: "How long does a typical repair take?",
+    a: "Most common repairs (screens, batteries, software issues) are completed same-day or within 24 hours. More complex repairs like motherboard work or data recovery may take 2–5 business days. We'll always give you a clear timeline upfront.",
+  },
+  {
+    q: "Do you offer a warranty on repairs?",
+    a: "Yes — every repair comes with a workmanship warranty. If something related to the repair fails, bring it back and we'll make it right.",
+  },
+  {
+    q: "How much will my repair cost?",
+    a: "Pricing depends on the device and the issue. We provide free, honest diagnostics and a transparent quote before doing any work — no surprises.",
+  },
+  {
+    q: "Do I need an appointment?",
+    a: "Walk-ins are welcome, but booking ahead through our contact form or by phone helps us prepare and get you in and out faster.",
+  },
+  {
+    q: "Is my data safe during a repair?",
+    a: "Absolutely. We treat your data with strict confidentiality and never access personal files unless explicitly required for the repair (and only with your permission).",
+  },
 ];
 
 function Home() {
@@ -83,6 +116,7 @@ function Home() {
         <Services />
         <About />
         <WhyUs />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
