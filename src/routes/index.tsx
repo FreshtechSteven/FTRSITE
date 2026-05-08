@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/freshtech-logo.svg";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -52,6 +53,7 @@ const services = [
   { icon: Wrench, title: "Software Troubleshooting", desc: "Slow computers, viruses, OS reinstalls and configuration — sorted fast." },
   { icon: HardDrive, title: "Data Recovery", desc: "Recover precious photos, documents and files from failing or damaged drives." },
   { icon: Cpu, title: "Hardware Diagnostics", desc: "Honest, transparent diagnostics so you know exactly what needs fixing." },
+  { icon: Wrench, title: "Device Maintenance & Upgrades", desc: "Cleanings, tune-ups, RAM and storage upgrades to keep devices running like new." },
 ];
 
 const reasons = [
@@ -59,7 +61,7 @@ const reasons = [
   "Affordable, transparent pricing",
   "Honest diagnostics — no surprises",
   "Local and trusted service",
-  "Tech expertise in phones and computers",
+  "Expertise across phones, computers, tablets, gaming consoles & consumer electronics",
 ];
 
 const navLinks = [
@@ -93,9 +95,7 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-navy text-navy-foreground">
-            <Wrench className="h-4 w-4" />
-          </span>
+          <img src={logo} alt="FreshTech Repair logo" className="h-9 w-9" />
           <span className="text-lg font-semibold tracking-tight">
             FreshTech<span className="text-orange">.</span>
           </span>
@@ -450,9 +450,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-navy text-navy-foreground">
-              <Wrench className="h-4 w-4" />
-            </span>
+            <img src={logo} alt="FreshTech Repair logo" className="h-9 w-9" />
             <span className="text-lg font-semibold tracking-tight">
               FreshTech<span className="text-orange">.</span> Repair
             </span>
