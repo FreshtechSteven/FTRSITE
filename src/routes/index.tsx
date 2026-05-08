@@ -19,6 +19,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/freshtech-logo.svg";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
@@ -52,6 +53,7 @@ const services = [
   { icon: Wrench, title: "Software Troubleshooting", desc: "Slow computers, viruses, OS reinstalls and configuration — sorted fast." },
   { icon: HardDrive, title: "Data Recovery", desc: "Recover precious photos, documents and files from failing or damaged drives." },
   { icon: Cpu, title: "Hardware Diagnostics", desc: "Honest, transparent diagnostics so you know exactly what needs fixing." },
+  { icon: Wrench, title: "Device Maintenance & Upgrades", desc: "Cleanings, tune-ups, RAM and storage upgrades to keep devices running like new." },
 ];
 
 const reasons = [
@@ -59,7 +61,7 @@ const reasons = [
   "Affordable, transparent pricing",
   "Honest diagnostics — no surprises",
   "Local and trusted service",
-  "Tech expertise in phones and computers",
+  "Expertise across phones, computers, tablets, gaming consoles & consumer electronics",
 ];
 
 const navLinks = [
