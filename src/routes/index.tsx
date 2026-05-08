@@ -14,10 +14,15 @@ import {
   X,
   Facebook,
   Instagram,
-  Twitter,
   CheckCircle2,
   ArrowRight,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/freshtech-logo.svg";
 import { Input } from "@/components/ui/input";
@@ -25,6 +30,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -68,7 +75,35 @@ const navLinks = [
   { href: "#services", label: "Services" },
   { href: "#about", label: "About" },
   { href: "#why", label: "Why Us" },
+  { href: "#faq", label: "FAQ" },
   { href: "#contact", label: "Contact" },
+];
+
+const faqs = [
+  {
+    q: "What devices do you repair?",
+    a: "We repair smartphones, tablets, laptops, desktops, gaming consoles, and a wide range of consumer electronics — from screen and battery issues to complex hardware and software problems.",
+  },
+  {
+    q: "How long does a typical repair take?",
+    a: "Most common repairs (screens, batteries, software issues) are completed same-day or within 24 hours. More complex repairs like motherboard work or data recovery may take 2–5 business days. We'll always give you a clear timeline upfront.",
+  },
+  {
+    q: "Do you offer a warranty on repairs?",
+    a: "Yes — every repair comes with a workmanship warranty. If something related to the repair fails, bring it back and we'll make it right.",
+  },
+  {
+    q: "How much will my repair cost?",
+    a: "Pricing depends on the device and the issue. We provide free, honest diagnostics and a transparent quote before doing any work — no surprises.",
+  },
+  {
+    q: "Do I need an appointment?",
+    a: "Walk-ins are welcome, but booking ahead through our contact form or by phone helps us prepare and get you in and out faster.",
+  },
+  {
+    q: "Is my data safe during a repair?",
+    a: "Absolutely. We treat your data with strict confidentiality and never access personal files unless explicitly required for the repair (and only with your permission).",
+  },
 ];
 
 function Home() {
@@ -83,6 +118,7 @@ function Home() {
         <Services />
         <About />
         <WhyUs />
+        <FAQ />
         <Contact />
       </main>
       <Footer />
@@ -332,17 +368,63 @@ function WhyUs() {
   );
 }
 
+function FAQ() {
+  return (
+    <section id="faq" className="border-t border-border bg-background py-20 sm:py-28">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Frequently asked questions"
+          desc="Quick answers to the things customers ask us most."
+        />
+        <Accordion type="single" collapsible className="mt-12 w-full">
+          {faqs.map((item, i) => (
+            <AccordionItem key={item.q} value={`item-${i}`}>
+              <AccordionTrigger className="text-left text-base font-medium text-navy hover:no-underline">
+                {item.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground leading-relaxed">
+                {item.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const contactSchema = z.object({
+    name: z.string().trim().min(1, "Please enter your name").max(100),
+    email: z.string().trim().email("Please enter a valid email").max(255),
+    message: z.string().trim().min(1, "Please enter a message").max(5000),
+  });
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const parsed = contactSchema.safeParse({
+      name: data.get("name"),
+      email: data.get("email"),
+      message: data.get("message"),
+    });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+      return;
+    }
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-      toast.success("Request sent! We'll get back to you shortly.");
-    }, 600);
+    const { error } = await supabase.from("contact_messages").insert(parsed.data);
+    setSubmitting(false);
+    if (error) {
+      toast.error("Couldn't send right now. Please call or email us instead.");
+      return;
+    }
+    form.reset();
+    toast.success("Request sent! We'll get back to you shortly.");
   }
 
   return (
@@ -381,7 +463,7 @@ function Contact() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" placeholder="Steven" required defaultValue="Steven" />
+                <Input id="name" name="name" placeholder="Your name" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -389,8 +471,7 @@ function Contact() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="help@freshtechrepair.org"
-                  defaultValue="help@freshtechrepair.org"
+                  placeholder="you@example.com"
                   required
                 />
               </div>
@@ -457,14 +538,23 @@ function Footer() {
           </div>
 
           <div className="flex items-center gap-4 text-muted-foreground">
-            <a href="#" aria-label="Facebook" className="transition-colors hover:text-orange">
+            <a
+              href="https://www.facebook.com/freshtechrepair"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook — @freshtechrepair"
+              className="transition-colors hover:text-orange"
+            >
               <Facebook className="h-5 w-5" />
             </a>
-            <a href="#" aria-label="Instagram" className="transition-colors hover:text-orange">
+            <a
+              href="https://www.instagram.com/freshtechrepair"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram — @freshtechrepair"
+              className="transition-colors hover:text-orange"
+            >
               <Instagram className="h-5 w-5" />
-            </a>
-            <a href="#" aria-label="Twitter" className="transition-colors hover:text-orange">
-              <Twitter className="h-5 w-5" />
             </a>
           </div>
 
