@@ -366,6 +366,32 @@ function WhyUs() {
   );
 }
 
+function FAQ() {
+  return (
+    <section id="faq" className="border-t border-border bg-background py-20 sm:py-28">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="FAQ"
+          title="Frequently asked questions"
+          desc="Quick answers to the things customers ask us most."
+        />
+        <Accordion type="single" collapsible className="mt-12 w-full">
+          {faqs.map((item, i) => (
+            <AccordionItem key={item.q} value={`item-${i}`}>
+              <AccordionTrigger className="text-left text-base font-medium text-navy hover:no-underline">
+                {item.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-muted-foreground leading-relaxed">
+                {item.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
@@ -491,14 +517,23 @@ function Footer() {
           </div>
 
           <div className="flex items-center gap-4 text-muted-foreground">
-            <a href="#" aria-label="Facebook" className="transition-colors hover:text-orange">
+            <a
+              href="https://www.facebook.com/freshtechrepair"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook — @freshtechrepair"
+              className="transition-colors hover:text-orange"
+            >
               <Facebook className="h-5 w-5" />
             </a>
-            <a href="#" aria-label="Instagram" className="transition-colors hover:text-orange">
+            <a
+              href="https://www.instagram.com/freshtechrepair"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram — @freshtechrepair"
+              className="transition-colors hover:text-orange"
+            >
               <Instagram className="h-5 w-5" />
-            </a>
-            <a href="#" aria-label="Twitter" className="transition-colors hover:text-orange">
-              <Twitter className="h-5 w-5" />
             </a>
           </div>
 
