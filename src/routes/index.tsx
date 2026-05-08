@@ -95,9 +95,7 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <a href="#top" className="flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-md bg-navy text-navy-foreground">
-            <Wrench className="h-4 w-4" />
-          </span>
+          <img src={logo} alt="FreshTech Repair logo" className="h-9 w-9" />
           <span className="text-lg font-semibold tracking-tight">
             FreshTech<span className="text-orange">.</span>
           </span>
