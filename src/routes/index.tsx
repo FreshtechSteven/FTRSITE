@@ -81,28 +81,60 @@ const navLinks = [
 
 const faqs = [
   {
+    q: "How does FreshTech Repair work?",
+    a: "FreshTech Repair is designed around convenience. In many cases, you don't even have to leave your home. Simply contact us with your device issue, and we'll coordinate pickup, repair, and drop-off based on your location and the type of service needed.",
+  },
+  {
+    q: "Do I need to visit a repair shop?",
+    a: "No. FreshTech Repair focuses on making the repair process as stress-free and convenient as possible. We offer pickup and drop-off options for many repairs, allowing customers to stay comfortable at home while we handle the repair process.",
+  },
+  {
     q: "What devices do you repair?",
-    a: "We repair smartphones, tablets, laptops, desktops, gaming consoles, and a wide range of consumer electronics — from screen and battery issues to complex hardware and software problems.",
+    a: "We repair smartphones, laptops, desktop computers, gaming PCs, tablets, software-related issues, and provide hardware diagnostics and troubleshooting.",
   },
   {
-    q: "How long does a typical repair take?",
-    a: "Most common repairs (screens, batteries, software issues) are completed same-day or within 24 hours. More complex repairs like motherboard work or data recovery may take 2–5 business days. We'll always give you a clear timeline upfront.",
+    q: "Do you build gaming computers?",
+    a: "Yes. FreshTech Repair also builds custom gaming PCs tailored to your needs and budget. Whether you're looking for an entry-level setup or a high-performance gaming machine, we can help recommend parts, assemble the system, and optimize it for performance.",
   },
   {
-    q: "Do you offer a warranty on repairs?",
-    a: "Yes — every repair comes with a workmanship warranty. If something related to the repair fails, bring it back and we'll make it right.",
+    q: "How long do repairs usually take?",
+    a: "Repair times vary depending on the issue and part availability. Some repairs can be completed the same day, while others may require additional time if special parts need to be ordered.",
   },
   {
-    q: "How much will my repair cost?",
-    a: "Pricing depends on the device and the issue. We provide free, honest diagnostics and a transparent quote before doing any work — no surprises.",
+    q: "Do you provide repair estimates?",
+    a: "Yes. We can provide an estimate based on the issue described. However, prices may change if additional problems are discovered during diagnostics or if replacement parts differ from the original estimate.",
   },
   {
-    q: "Do I need an appointment?",
-    a: "Walk-ins are welcome, but booking ahead through our contact form or by phone helps us prepare and get you in and out faster.",
+    q: "Are deposits required?",
+    a: "Some repairs require a deposit, especially repairs that involve ordering parts specifically for your device. Deposits help cover the cost of special-order components and secure the repair process.",
   },
   {
-    q: "Is my data safe during a repair?",
-    a: "Absolutely. We treat your data with strict confidentiality and never access personal files unless explicitly required for the repair (and only with your permission).",
+    q: "What happens if my device has more damage than expected?",
+    a: "If additional issues are found during repair, we will contact you before moving forward with any extra work or charges. Transparency is important to us, and no additional repairs will be completed without customer approval.",
+  },
+  {
+    q: "Do you offer diagnostics?",
+    a: "Yes. FreshTech Repair offers diagnostics for phones, computers, and other tech devices to help identify hardware or software issues before repairs begin.",
+  },
+  {
+    q: "Can you recover lost data?",
+    a: "In many cases, yes. We offer data recovery assistance for devices experiencing software corruption, boot failures, or storage-related issues. Recovery success depends on the condition of the device.",
+  },
+  {
+    q: "What payment methods do you accept?",
+    a: "We accept common digital payment methods and bank transfers. Payment details are provided during the repair process.",
+  },
+  {
+    q: "Do you repair both Apple and Android devices?",
+    a: "Yes. We service both Apple and Android smartphones, along with Windows laptops/desktops and other common consumer devices.",
+  },
+  {
+    q: "Is my personal data safe during repairs?",
+    a: "Customer privacy is taken seriously. We only access the information necessary to complete repairs or diagnostics and aim to keep customer data secure and confidential throughout the process.",
+  },
+  {
+    q: "Do you offer support after repairs?",
+    a: "Yes. If you experience issues related to a recent repair, contact us and we'll work with you to resolve the problem.",
   },
 ];
 
