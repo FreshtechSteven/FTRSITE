@@ -533,6 +533,35 @@ function Contact() {
   );
 }
 
+function ServiceArea() {
+  return (
+    <section
+      id="service-area"
+      className="border-t border-border bg-background py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          eyebrow="Service area"
+          title="Where we operate"
+          desc="Proudly serving Philadelphia, South Jersey, and surrounding areas — with pickup and drop-off options for many repairs."
+        />
+        <div className="mt-14 overflow-hidden rounded-2xl border border-border shadow-soft">
+          <iframe
+            title="FreshTech Repair service area map"
+            src="https://www.google.com/maps?q=Philadelphia,PA&output=embed"
+            width="100%"
+            height="450"
+            style={{ border: 0 }}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ContactItem({
   icon: Icon,
   title,
