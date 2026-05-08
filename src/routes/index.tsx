@@ -30,6 +30,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -395,14 +397,34 @@ function FAQ() {
 function Contact() {
   const [submitting, setSubmitting] = useState(false);
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  const contactSchema = z.object({
+    name: z.string().trim().min(1, "Please enter your name").max(100),
+    email: z.string().trim().email("Please enter a valid email").max(255),
+    message: z.string().trim().min(1, "Please enter a message").max(5000),
+  });
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    const parsed = contactSchema.safeParse({
+      name: data.get("name"),
+      email: data.get("email"),
+      message: data.get("message"),
+    });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
+      return;
+    }
     setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      (e.target as HTMLFormElement).reset();
-      toast.success("Request sent! We'll get back to you shortly.");
-    }, 600);
+    const { error } = await supabase.from("contact_messages").insert(parsed.data);
+    setSubmitting(false);
+    if (error) {
+      toast.error("Couldn't send right now. Please call or email us instead.");
+      return;
+    }
+    form.reset();
+    toast.success("Request sent! We'll get back to you shortly.");
   }
 
   return (
@@ -441,7 +463,7 @@ function Contact() {
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" placeholder="Steven" required defaultValue="Steven" />
+                <Input id="name" name="name" placeholder="Your name" required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -449,8 +471,7 @@ function Contact() {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="help@freshtechrepair.org"
-                  defaultValue="help@freshtechrepair.org"
+                  placeholder="you@example.com"
                   required
                 />
               </div>
