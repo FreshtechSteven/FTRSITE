@@ -450,9 +450,7 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
           <div className="flex items-center gap-2">
-            <span className="flex h-8 w-8 items-center justify-center rounded-md bg-navy text-navy-foreground">
-              <Wrench className="h-4 w-4" />
-            </span>
+            <img src={logo} alt="FreshTech Repair logo" className="h-9 w-9" />
             <span className="text-lg font-semibold tracking-tight">
               FreshTech<span className="text-orange">.</span> Repair
             </span>
