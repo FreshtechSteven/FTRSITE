@@ -152,6 +152,7 @@ function Home() {
         <WhyUs />
         <FAQ />
         <Contact />
+        <ServiceArea />
       </main>
       <Footer />
     </div>
