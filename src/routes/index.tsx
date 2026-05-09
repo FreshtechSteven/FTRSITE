@@ -102,7 +102,7 @@ const faqs = [
   },
   {
     q: "Do you provide repair estimates?",
-    a: "Yes. We can provide an estimate based on the issue described. However, prices may change if additional problems are discovered during diagnostics or if replacement parts differ from the original estimate.",
+    a: "Yes. We can provide an estimate based on the issue described. However, prices may change if additional problems are discovered during diagnostics or if replacement parts differ from the original estimate. And if we're ultimately unable to fix the device, you won't be charged — no successful repair, no fee.",
   },
   {
     q: "Are deposits required?",
@@ -457,7 +457,7 @@ function Contact() {
       return;
     }
     form.reset();
-    toast.success("Request sent! We'll get back to you shortly.");
+    toast.success("Request sent! We'll get back to you shortly. Remember: no charge unless we successfully fix it.");
   }
 
   return (
