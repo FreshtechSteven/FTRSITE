@@ -82,7 +82,7 @@ const navLinks = [
 const faqs = [
   {
     q: "How does FreshTech Repair work?",
-    a: "FreshTech Repair is designed around convenience. In many cases, you don't even have to leave your home. Simply contact us with your device issue, and we'll coordinate pickup, repair, and drop-off based on your location and the type of service needed.",
+    a: "FreshTech Repair is designed around convenience. In many cases, you don't even have to leave your home. Simply contact us with your device issue, and we'll coordinate pickup, repair, and drop-off based on your location and the type of service needed. And if we can't fix it, you don't pay — there's no charge until a repair is successfully completed.",
   },
   {
     q: "Do I need to visit a repair shop?",
