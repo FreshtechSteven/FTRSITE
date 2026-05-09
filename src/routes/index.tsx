@@ -514,10 +514,9 @@ function Contact() {
             </div>
             <Button
               type="submit"
-              disabled={submitting}
               className="mt-6 w-full bg-orange text-orange-foreground hover:bg-orange/90 sm:w-auto"
             >
-              {submitting ? "Sending..." : "Send Request"}
+              Send Request
             </Button>
           </form>
         </div>
