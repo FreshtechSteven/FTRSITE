@@ -457,7 +457,7 @@ function Contact() {
       return;
     }
     form.reset();
-    toast.success("Request sent! We'll get back to you shortly.");
+    toast.success("Request sent! We'll get back to you shortly. Remember: no charge unless we successfully fix it.");
   }
 
   return (
