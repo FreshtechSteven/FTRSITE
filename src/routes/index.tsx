@@ -428,15 +428,13 @@ function FAQ() {
 }
 
 function Contact() {
-  const [submitting, setSubmitting] = useState(false);
-
   const contactSchema = z.object({
     name: z.string().trim().min(1, "Please enter your name").max(100),
     email: z.string().trim().email("Please enter a valid email").max(255),
     message: z.string().trim().min(1, "Please enter a message").max(5000),
   });
 
-  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
@@ -449,15 +447,10 @@ function Contact() {
       toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
-    setSubmitting(true);
-    const { error } = await supabase.from("contact_messages").insert(parsed.data);
-    setSubmitting(false);
-    if (error) {
-      toast.error("Couldn't send right now. Please call or email us instead.");
-      return;
-    }
-    form.reset();
-    toast.success("Request sent! We'll get back to you shortly. Remember: no charge unless we successfully fix it.");
+    const subject = `Repair request from ${parsed.data.name}`;
+    const body = `Name: ${parsed.data.name}\nEmail: ${parsed.data.email}\n\n${parsed.data.message}`;
+    window.location.href = `mailto:help@freshtechrepair.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    toast.success("Opening your email app — send the message to reach us. No charge unless we successfully fix it.");
   }
 
   return (
