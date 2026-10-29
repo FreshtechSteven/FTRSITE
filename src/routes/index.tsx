@@ -27,12 +27,12 @@ import {
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/freshtech-logo.svg";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Toaster } from "@/components/ui/sonner";
 
-import { z } from "zod";
+import { createRepairTicket, repairEmailSubject, repairOptions, repairRequestSchema } from "@/lib/repair-request";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,6 +44,8 @@ export const Route = createFileRoute("/")({
           "FreshTech Repair offers fast, affordable computer, electronic and device repairs in Philadelphia, NJ and surrounding areas — and we come to you. Book a repair today.",
       },
       { property: "og:title", content: "FreshTech Repair — Computer & Electronic Repairs" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
       {
         property: "og:description",
         content:
@@ -433,29 +435,33 @@ function FAQ() {
 }
 
 function Contact() {
-  const contactSchema = z.object({
-    name: z.string().trim().min(1, "Please enter your name").max(100),
-    email: z.string().trim().email("Please enter a valid email").max(255),
-    message: z.string().trim().min(1, "Please enter a message").max(5000),
-  });
+  const [device, setDevice] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const parsed = contactSchema.safeParse({
+    const parsed = repairRequestSchema.safeParse({
       name: data.get("name"),
       email: data.get("email"),
-      message: data.get("message"),
+      phone: data.get("phone"),
+      device,
     });
     if (!parsed.success) {
+      e.preventDefault();
       toast.error(parsed.error.issues[0]?.message ?? "Please check the form");
       return;
     }
-    const subject = `Repair request from ${parsed.data.name}`;
-    const body = `Name: ${parsed.data.name}\nEmail: ${parsed.data.email}\n\n${parsed.data.message}`;
-    window.location.href = `mailto:help@freshtechrepair.org?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    toast.success("Opening your email app — send the message to reach us. No charge unless we successfully fix it.");
+    const ticket = createRepairTicket();
+    for (const [key, value] of Object.entries({
+      ...parsed.data,
+      ticket_number: ticket,
+      _subject: repairEmailSubject(ticket),
+    })) {
+      const field = form.elements.namedItem(key);
+      if (field instanceof HTMLInputElement) field.value = value;
+    }
+    setSubmitting(true);
   }
 
   return (
@@ -471,8 +477,8 @@ function Contact() {
             <ContactItem
               icon={Phone}
               title="Phone"
-              value="(267) 225-4783"
-              href="tel:+12672254783"
+              value="(215) 254-0554"
+              href="tel:+12152540554"
             />
             <ContactItem
               icon={Mail}
@@ -489,12 +495,18 @@ function Contact() {
 
           <form
             onSubmit={handleSubmit}
+            action="https://formsubmit.co/help@freshtechrepair.org"
+            method="POST"
             className="lg:col-span-3 rounded-2xl border border-border bg-card p-6 shadow-soft sm:p-8"
           >
+            <input type="hidden" name="ticket_number" />
+            <input type="hidden" name="_subject" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
             <div className="grid gap-5 sm:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" name="name" placeholder="Your name" required />
+                <Input id="name" name="name" placeholder="Your name" autoComplete="name" maxLength={100} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
@@ -503,25 +515,37 @@ function Contact() {
                   name="email"
                   type="email"
                   placeholder="you@example.com"
+                  autoComplete="email"
+                  maxLength={255}
                   required
                 />
               </div>
             </div>
-            <div className="mt-5 space-y-2">
-              <Label htmlFor="message">Device issue / message</Label>
-              <Textarea
-                id="message"
-                name="message"
-                rows={5}
-                placeholder="Tell us about your device and the issue..."
-                required
-              />
+            <div className="mt-5 grid gap-5 sm:grid-cols-2">
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone number (optional)</Label>
+                <Input id="phone" name="phone" type="tel" autoComplete="tel" maxLength={30} placeholder="Your callback number" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="device">Device / service</Label>
+                <input type="hidden" name="device" value={device} />
+                <Select value={device} onValueChange={setDevice}>
+                  <SelectTrigger id="device" aria-required="true">
+                    <SelectValue placeholder="Select a device or service" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {repairOptions.map((option) => <SelectItem key={option} value={option}>{option}</SelectItem>)}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
+            <p className="mt-5 text-sm text-muted-foreground">No charge unless a repair is successfully completed.</p>
             <Button
               type="submit"
+              disabled={submitting}
               className="mt-6 w-full bg-orange text-orange-foreground hover:bg-orange/90 sm:w-auto"
             >
-              Send Request
+              {submitting ? "Submitting…" : "Send Request"}
             </Button>
           </form>
         </div>
