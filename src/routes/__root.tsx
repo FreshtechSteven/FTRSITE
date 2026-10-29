@@ -73,14 +73,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "FreshTech Repair" },
+      { name: "description", content: "Mobile computer and electronic repairs in Philadelphia, NJ and surrounding areas." },
+      { name: "author", content: "FreshTech Repair" },
+      { property: "og:title", content: "FreshTech Repair" },
+      { property: "og:description", content: "Mobile computer and electronic repairs — we come to you." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
       {
