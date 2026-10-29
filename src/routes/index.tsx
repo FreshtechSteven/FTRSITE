@@ -7,6 +7,7 @@ import {
   Wrench,
   HardDrive,
   Cpu,
+  Truck,
   Phone,
   Mail,
   MapPin,
@@ -36,17 +37,17 @@ import { z } from "zod";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "FreshTech Repair — Fast, Reliable Phone & Computer Repairs" },
+      { title: "FreshTech Repair — Fast, Reliable Computer & Electronic Repairs" },
       {
         name: "description",
         content:
-          "FreshTech Repair offers fast, affordable phone, laptop and desktop repairs in Philadelphia, NJ and surrounding areas. Book a repair today.",
+          "FreshTech Repair offers fast, affordable computer, electronic and device repairs in Philadelphia, NJ and surrounding areas — and we come to you. Book a repair today.",
       },
-      { property: "og:title", content: "FreshTech Repair — Phone & Computer Repairs" },
+      { property: "og:title", content: "FreshTech Repair — Computer & Electronic Repairs" },
       {
         property: "og:description",
         content:
-          "Fast, reliable repairs for smartphones, laptops, and desktops. Honest diagnostics and quick turnaround.",
+          "Fast, reliable repairs for computers, electronics, tablets and phones. Honest diagnostics, quick turnaround, and mobile service wherever you are.",
       },
     ],
   }),
@@ -230,10 +231,14 @@ function Hero() {
             Trusted local repair experts
           </span>
           <h1 className="mt-6 text-4xl font-semibold tracking-tight text-navy sm:text-5xl lg:text-6xl">
-            Fast, Reliable Phone & Computer Repairs
+            Fast, Reliable Computer & Electronic Repairs
           </h1>
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground sm:text-lg">
             We repair smartphones, laptops, desktops, and provide tech support for everyday users and small businesses.
+          </p>
+          <p className="mt-5 flex items-center gap-2 text-lg font-bold leading-snug text-foreground">
+            <Truck className="h-6 w-6 shrink-0 text-orange" />
+            We come to you — mobile repairs on wheels, wherever you are.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="bg-orange text-orange-foreground hover:bg-orange/90 shadow-glow">
