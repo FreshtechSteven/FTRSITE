@@ -166,7 +166,7 @@ function Header({ open, setOpen }: { open: boolean; setOpen: (v: boolean) => voi
         <a href="#top" className="flex items-center gap-2">
           <img src={logo} alt="FreshTech Repair logo" className="h-9 w-9" />
           <span className="text-lg font-semibold tracking-tight">
-            FreshTech<span className="text-orange">.</span>
+            FreshTech <span className="text-orange">Repair</span>
           </span>
         </a>
 
@@ -252,8 +252,8 @@ function Hero() {
           </div>
           <div className="mt-10 grid grid-cols-3 gap-6 max-w-md">
             <Stat value="24h" label="Avg. turnaround" />
-            <Stat value="2k+" label="Devices fixed" />
-            <Stat value="4.9★" label="Customer rating" />
+            <Stat value="15+" label="Years of device repair" />
+            <Stat value="5★" label="Service promise" />
           </div>
         </div>
 
@@ -349,17 +349,17 @@ function About() {
             diagnostics, and quick turnaround.
           </p>
           <p className="mt-4 text-muted-foreground leading-relaxed">
-            With years of hands-on experience across mobile devices and computers, our technicians are
-            equipped to handle everything from a cracked iPhone screen to a complex motherboard repair on
-            your laptop.
+            With more than 15 years of hands-on experience across phones, computers, tablets, gaming
+            consoles and consumer electronics, our technicians are equipped to handle everything from a
+            cracked iPhone screen to a complex motherboard repair on your laptop.
           </p>
         </div>
         <div className="grid grid-cols-2 gap-4">
           {[
-            { k: "Years experience", v: "10+" },
-            { k: "Repairs completed", v: "2,000+" },
+            { k: "Years of repair", v: "15+" },
+            { k: "Service promise", v: "5★" },
             { k: "Avg. turnaround", v: "24h" },
-            { k: "Customer rating", v: "4.9 / 5" },
+            { k: "No-fix-no-charge", v: "Always" },
           ].map((s) => (
             <div key={s.k} className="rounded-2xl border border-border bg-card p-6 shadow-soft">
               <div className="text-3xl font-semibold text-navy">{s.v}</div>
